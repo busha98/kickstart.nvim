@@ -22,6 +22,7 @@ require('lazy').setup({
 
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
+  require 'plugins.abolish',
   require 'plugins.neo-tree',
   require 'plugins.autopairs',
   require 'plugins.debug',
@@ -39,6 +40,7 @@ require('lazy').setup({
   require 'plugins.tokyonight',
   require 'plugins.mini',
   require 'plugins.treesitter',
+  require 'plugins.harpoon',
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
