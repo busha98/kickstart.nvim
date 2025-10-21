@@ -121,6 +121,7 @@ return {
         processId = require('dap.utils').pick_process,
         cwd = '${workspaceFolder}',
         sourceMaps = true,
+        restart = true,
       },
     }
 
