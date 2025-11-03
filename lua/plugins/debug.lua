@@ -5,11 +5,10 @@ return {
   dependencies = {
     'rcarriga/nvim-dap-ui', -- Creates a beautiful debugger UI
     'nvim-neotest/nvim-nio', -- Required dependency for nvim-dap-ui
-
     'williamboman/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
-
     'mxsdev/nvim-dap-vscode-js',
+    'mfussenegger/nvim-dap-python',
   },
   keys = {
     {
@@ -70,16 +69,16 @@ return {
 
     require('mason-nvim-dap').setup {
       automatic_installation = true,
-
-      handlers = {}, -- see mason-nvim-dap README for more information
-
+      handlers = {},
       ensure_installed = {
         'delve',
         'pyright',
         'typescript-language-server',
         'js-debug-adapter',
+        'debugpy',
       },
     }
+
     local debugger_path = vim.fn.stdpath 'data' .. '/mason/packages/js-debug-adapter'
     local debugger_cmd = 'js-debug-adapter'
 
@@ -105,7 +104,19 @@ return {
       },
     }
 
-    dap.configurations.javascript = {
+    require('dap-python').setup '/home/artsiom/.pyenv/versions/3.12.10/envs/debugpy/bin/python'
+
+    -- local resolve_locations = {
+    --   '${workspaceFolder}/**',
+    --   '!**/node_modules/**',
+    -- }
+
+    local skip_files = {
+      '<node_internals>/**', -- Skips Node.js core internal modules
+      '${workspaceFolder}/node_modules/**', -- Skips third-party libraries
+    }
+
+    dap.configurations.typescript = {
       {
         type = 'pwa-node',
         request = 'launch',
@@ -113,6 +124,9 @@ return {
         program = '${file}',
         cwd = '${workspaceFolder}',
         sourceMaps = true,
+        restart = true,
+        -- resolveSourceMapLocations = resolve_locations,
+        skipFiles = skip_files,
       },
       {
         type = 'pwa-node',
@@ -122,10 +136,10 @@ return {
         cwd = '${workspaceFolder}',
         sourceMaps = true,
         restart = true,
+        -- resolveSourceMapLocations = resolve_locations,
+        skipFiles = skip_files,
       },
     }
-
-    dap.configurations.typescript = dap.configurations.javascript
 
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
