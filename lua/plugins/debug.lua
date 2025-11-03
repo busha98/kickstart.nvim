@@ -104,6 +104,7 @@ return {
       },
     }
 
+    -- poetry run python -m debugpy --wait-for-client --listen 127.0.0.1:5678 src/main.py
     require('dap-python').setup '/home/artsiom/.pyenv/versions/3.12.10/envs/debugpy/bin/python'
 
     -- local resolve_locations = {
