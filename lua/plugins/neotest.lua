@@ -8,6 +8,7 @@ return {
     'nvim-neotest/neotest-python',
     'nvim-neotest/neotest-plenary',
     'nvim-neotest/neotest-vim-test',
+    'nvim-neotest/neotest-jest',
   },
   config = function()
     require('neotest').setup {
@@ -19,6 +20,7 @@ return {
         require 'neotest-vim-test' {
           ignore_file_types = { 'python', 'vim', 'lua' },
         },
+        require 'neotest-jest',
       },
     }
   end,
